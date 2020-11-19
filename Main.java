@@ -1,54 +1,51 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.io.*;
-
-/**
- *
- * @author alisa
- */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        ArrayList<WorkerFixed> list = new ArrayList<WorkerFixed>();
-      try
-        {
-            FileReader fr = new FileReader("x.txt");
-            BufferedReader reader = new BufferedReader(fr);
-            String line = reader.readLine();
-            while(line !=null){
-                 list.add(WorkerFixed(Integer.parseInt(reader.readLine()), Integer.parseInt(reader.readLine()), reader.readLine()));
-            } 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }   
-      Collections.sort(list, new Sorting());
-       try(FileWriter writer = new FileWriter("x.txt", false))
-        {
-           for (int i = 0; i < list.size(); i++) {
-          writer.write(list.get(i).id);
-          writer.write(list.get(i).name);
-          writer.write(list.get(i).wage);
-      }
-             
-            writer.flush();
-        }
-        catch(IOException ex){
-             
-            System.out.println(ex.getMessage());
-        } 
-      
+        int c = 1;
+        first(c, -1);
+        int[] array = new int[] {1,2,3,4,5};
+        System.out.println(binarySearch(array, 4, 0, array.length-1));
+        double low = 0;
+        double high = 10;
+        System.out.println(find(low, high));
     }
     
+    public static String first(int c, int n) {
+        if (c <= n) {
+            System.out.println(c);
+            return first(c+1, n);
+        } else {
+            return "Done";
+        }
+    }
+    
+    public static int binarySearch( int [ ] a, int x, int low, int high ) {
+        if( low > high ) {
+            return -1;
+        }
+        int mid = ( low + high ) / 2;
+        if( a[mid] < x) {
+          return binarySearch( a, x, mid + 1, high );
+        } else if( a[mid] > x) {
+            return binarySearch( a, x, low, mid - 1 );
+        }
+        else {
+            return mid;
+        }
+    }
+    
+    public static double find(double low, double high) { 
+        double x = (low + high)/2;
+        double res = Math.cos(Math.cos(Math.pow(x, 5)))+ Math.pow(x, 4) - 345.3*x - 23;
+        if (res < -0.0001) {
+            return find(low+x, high);
+        } else if (res > 0.0001) {
+            return find(low, high-x);
+        } else {
+            return x;
+        }
+    }
+        
 }
